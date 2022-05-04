@@ -24,12 +24,31 @@
               <%= link_to 'Books', books_path, class: 'nav-link' %>
             </li>
           </ul>
+          <% if user_signed_in? %>
+            <div class="ml-auto btn-toolbar p-3">
+              Welcome, <%= current_user.email %>!
+            </div>
+            <div class="ml-auto btn-toolbar">
+              <%= button_to 'Logout', destroy_user_session_path, class: 'btn btn-primary', method: :delete, form: { data: { turbo_confirm: "Are you sure you want to log out? " } } %>
+            </div>
+          <% else %>
+            <div class="ml-auto btn-toolbar p-3">
+              <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-secondary' %>
+            </div>
+            <div class="ml-auto btn-toolbar">
+              <%= link_to 'Login', new_user_session_path, class: 'btn btn-primary' %>
+            </div>
+          <% end %>
         </div>
       </div>
     </nav>
     <main class="p-3">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <% if notice %>
+        <p class="alert alert-info notice" role="alert"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-danger" role="alert"><%= alert %></p>
+      <% end %>
       <%= yield %>
     </main>
   </body>

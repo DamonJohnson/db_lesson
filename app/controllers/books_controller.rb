@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
   # DEBUG - REMOVE FOR PRODUCTION!!!
   # skip_before_action :verify_authenticity_token
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_book, only: [:show, :update, :destroy, :edit]
   before_action :set_authors, only: [:new, :edit]
 
@@ -23,6 +24,8 @@ class BooksController < ApplicationController
   def edit
   end
 
+
+  
   def update
     @book.update(book_params)
     redirect_to @book

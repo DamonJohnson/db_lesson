@@ -1,7 +1,9 @@
 <h1> <%= @book.title %> </h1>
 <h3>By <%= @book.author.full_name %></h3>
-
-<div class="btn-toolbar">
+<% if user_signed_in? %>
+  <div class="btn-toolbar">
     <%= link_to 'Edit', edit_book_path(@book), class: 'btn btn-warning me-2' %>
     <%= button_to 'Delete', @book, class: 'btn btn-danger', method: :delete, form: { data: { turbo_confirm: "Are you sure you want to delete '#{@book.title}' ?" } } %>
-</div>
+  </div>
+<% end %>
+
